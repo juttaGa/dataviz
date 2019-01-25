@@ -8,14 +8,18 @@ always_allow_html: yes
 library(ggplot2)
 library(ggthemr)
 library(dplyr)
-library(knitr)
-library(plotly)
 ```
 
 Read the dataset and convert the temperature and light intensity (lux) columns to factors.
 
-```{r}
+```{r, echo=FALSE}
 algae <- read.csv("C:/Users/Jutta/OneDrive/dataviz battle/algae/algae.csv", sep=";")
+algae$temp <- as.factor(algae$temp)
+algae$lux <- as.factor(algae$lux)
+```
+
+```{r, eval=FALSE}
+algae <- read.csv("/algae/algae.csv", sep=";")
 algae$temp <- as.factor(algae$temp)
 algae$lux <- as.factor(algae$lux)
 ```
@@ -28,7 +32,7 @@ The dataset is available at [http://www.aquatext.com/tables/algaegrwth.htm](http
 str(algae)
 ```
 
-There are nineteen species of algae, each measured at four different temperatures (5, 10, 25, 30 °C) and two different light intensities (2500 and 5000 lux). The names of the nineteen species are
+There are nineteen species of algae, each measured at four different temperatures (5, 10, 25, 30 Â°C) and two different light intensities (2500 and 5000 lux). The names of the nineteen species are
 
 ```{r}
 levels(algae$species)
@@ -56,7 +60,7 @@ ggplot(algae, aes(x=temp, y=value, color=lux, group=lux)) +
   geom_line(size=1) + 
   facet_wrap( ~ species, nrow = 6) +
   labs(
-    x = "Temperature (°C)", 
+    x = "Temperature (?C)", 
     y = "Divisions per day",
     color = "Light intensity (lux)") +
   ggtitle("Growth Rates of Algae") +

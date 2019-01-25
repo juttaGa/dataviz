@@ -5,16 +5,12 @@ Growth Rates of Algae
 library(ggplot2)
 library(ggthemr)
 library(dplyr)
-library(knitr)
-library(plotly)
 ```
-
-    ## Warning: package 'plotly' was built under R version 3.5.2
 
 Read the dataset and convert the temperature and light intensity (lux) columns to factors.
 
 ``` r
-algae <- read.csv("C:/Users/Jutta/OneDrive/dataviz battle/algae/algae.csv", sep=";")
+algae <- read.csv("/algae/algae.csv", sep=";")
 algae$temp <- as.factor(algae$temp)
 algae$lux <- as.factor(algae$lux)
 ```
@@ -96,11 +92,11 @@ ggplot(algae, aes(x=temp, y=value, color=lux, group=lux)) +
   geom_line(size=1) + 
   facet_wrap( ~ species, nrow = 6) +
   labs(
-    x = "Temperature (°C)", 
+    x = "Temperature (?C)", 
     y = "Divisions per day",
     color = "Light intensity (lux)") +
   ggtitle("Growth Rates of Algae") +
   theme(legend.position = "bottom", legend.direction = "horizontal")
 ```
 
-![](algae_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](algae_files/figure-markdown_github/unnamed-chunk-7-1.png)
