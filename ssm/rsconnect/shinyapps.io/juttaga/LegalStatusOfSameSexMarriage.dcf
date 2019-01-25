@@ -1,0 +1,13 @@
+name: LegalStatusOfSameSexMarriage
+title: LegalStatusOfSameSexMarriage
+username:
+account: juttaga
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 666193
+bundleId: 1836671
+url: https://juttaga.shinyapps.io/LegalStatusOfSameSexMarriage/
+when: 1548426551.79863
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: rcode_ssm.R|ssm.jpeg

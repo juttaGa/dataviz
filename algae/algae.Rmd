@@ -1,0 +1,67 @@
+---
+title: "Growth Rates of Algae"
+output: rmarkdown::github_document
+always_allow_html: yes
+---
+
+```{r, message=FALSE}
+library(ggplot2)
+library(ggthemr)
+library(dplyr)
+library(knitr)
+library(plotly)
+```
+
+Read the dataset and convert the temperature and light intensity (lux) columns to factors.
+
+```{r}
+algae <- read.csv("C:/Users/Jutta/OneDrive/dataviz battle/algae/algae.csv", sep=";")
+algae$temp <- as.factor(algae$temp)
+algae$lux <- as.factor(algae$lux)
+```
+
+## Exploring the dataset
+
+The dataset is available at [http://www.aquatext.com/tables/algaegrwth.htm](http://www.aquatext.com/tables/algaegrwth.htm). It contains specific growth rates of algae measured in divisions per day at different light intensities and temperatures.
+
+```{r}
+str(algae)
+```
+
+There are nineteen species of algae, each measured at four different temperatures (5, 10, 25, 30 °C) and two different light intensities (2500 and 5000 lux). The names of the nineteen species are
+
+```{r}
+levels(algae$species)
+```
+
+A summary of the growth rates by species:
+
+```{r}
+algae %>% group_by(species) %>% summarise(
+  mean = mean(value),
+  sd = sd(value),
+  min = min(value),
+  max = max(value)
+  )
+```
+
+Now plot the growth rates for each species, lux and temperature:
+
+```{r, warning=FALSE, fig.height=8, fig.width=9, dpi=400}
+# set ggthemr "dust"
+ggthemr("dust")
+
+ggplot(algae, aes(x=temp, y=value, color=lux, group=lux)) +
+  geom_point(size=2) +
+  geom_line(size=1) + 
+  facet_wrap( ~ species, nrow = 6) +
+  labs(
+    x = "Temperature (°C)", 
+    y = "Divisions per day",
+    color = "Light intensity (lux)") +
+  ggtitle("Growth Rates of Algae") +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+```
+
+
+
